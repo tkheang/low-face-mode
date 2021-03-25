@@ -25,8 +25,14 @@ elif platform.system() == 'Darwin':
     with open("scripts/dim.applescript") as dim:
         dim_script = dim.read()
 
-# TODO: Add support on windows
+# if running on Windows, load windows scripts
+elif platform.system() == 'Windows':
 
+    with open("windows_scripts/brighten.bat") as f:
+        brighten_script = f.read()
+    
+    with open("windows_scripts/dim.bat") as f:
+        dim_script = f.read()
 
 def dim():
 
@@ -36,6 +42,8 @@ def dim():
     elif platform.system() == 'Darwin':
         osascript.osascript(dim_script)
 
+    elif platform.system() == 'Windows':
+        call(dim_script, shell=True)
 
 def brighten():
 
@@ -45,6 +53,8 @@ def brighten():
     elif platform.system() == 'Darwin':
         osascript.osascript(brighten_script)
 
+    elif platform.system() == 'Windows':
+        call(brighten_script, shell=True)
 
 face_cascade = cv2.CascadeClassifier("data/haarcascade_frontalface_default.xml")
 
